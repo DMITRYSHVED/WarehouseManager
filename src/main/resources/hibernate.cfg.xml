@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- Настройки подключения к базе данных -->
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/warehouse</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">1111</property>
+
+        <!-- Настройки Hibernate -->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.show_sql">true</property>
+
+        <!-- Маппинг классов -->
+        <mapping class="entity.Delivery"/>
+        <mapping class="entity.DeliveryProductList"/>
+        <mapping class="entity.OrderProductList"/>
+        <mapping class="entity.OrderStatus"/>
+        <mapping class="entity.Product"/>
+        <mapping class="entity.ProductOrder"/>
+        <mapping class="entity.ProductType"/>
+        <mapping class="entity.Provider"/>
+        <mapping class="entity.Role"/>
+        <mapping class="entity.Storage"/>
+        <mapping class="entity.User"/>
+    </session-factory>
+</hibernate-configuration>
