@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>WELCOME</title>
+</head>
+<body>
+WELCOME
+<br>
+<div th:insert="~{part :: header}"></div>
+<br>
+<form th:action="@{/admin}">
+    <a href="/admin">
+        <button>ADMIN PANEL</button>
+    </a>
+</form>
+</body>
+</html>

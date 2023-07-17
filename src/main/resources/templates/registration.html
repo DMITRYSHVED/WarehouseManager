@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="/styles/securityStyle.css">
+</head>
+<body>
+<form th:action="@{/registration}" method="POST" th:object="${userDTO}">
+    <h1>Регистрация</h1>
+    <label for="firstName">Имя</label>
+    <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="error"></span>
+    <input type="text" id="firstName" name="firstName" required>
+    <label for="lastName">Фамилия</label>
+    <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error"></span>
+    <input type="text" id="lastName" name="lastName" required>
+    <label for="email">Почта</label>
+    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></span>
+    <input type="email" id="email" name="email" required>
+    <label for="login">Логин</label>
+    <span th:if="${#fields.hasErrors('login')}" th:errors="*{login}" class="error"></span>
+    <input type="text" id="login" name="login" required>
+    <label for="password">Пароль</label>
+    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></span>
+    <input type="password" id="password" name="password" required>
+    <label for="confirmPassword">Подтвердите пароль</label>
+    <span th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="error"></span>
+    <input type="password" id="confirmPassword" name="confirmPassword" required>
+    <input type="submit" value="Зарегистрироваться">
+    <p>Уже зарегистрированы? <a href="/login">Войти</a></p>
+</form>
+</body>
+</html>

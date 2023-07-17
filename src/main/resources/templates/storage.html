@@ -1,0 +1,37 @@
+<table border="1" align="center">
+    <thead>
+    <tr>
+        <th>LOGIN</th>
+        <th>EMAIL</th>
+        <th>FIRST_NAME</th>
+        <th>LAST_NAME</th>
+        <th>APPROVE_STATUS</th>
+        <th>-</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.login}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.firstName}"></td>
+        <td th:text="${user.lastName}"></td>
+        <td>
+            <span th:switch="${user.isApproved()}">
+                <span th:case="false">unapproved</span>
+                <span th:case="true">approved</span>
+            </span>
+        </td>
+        <td>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Опции
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/admin/access(id=${user.id})}">одобрить</a></li>
+                    <li><a class="dropdown-item" th:href="@{/admin/delete(id=${user.id})}">удалить</a></li>
+                </ul>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>

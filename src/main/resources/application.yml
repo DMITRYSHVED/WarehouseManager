@@ -1,0 +1,9 @@
+# application.yml
+
+# Настройки логгера
+logging:
+  level:
+    root: INFO
+
+# Настройки Logback
+logging.config: classpath:logback-spring.xml
