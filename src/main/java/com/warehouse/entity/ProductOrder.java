@@ -8,9 +8,9 @@ import java.util.Objects;
 @Table(name = "product_order")
 public class ProductOrder extends AbstractEntity {
 
-    @Column
     @Id
     @GeneratedValue
+    @Column
     private int id;
 
     @Column

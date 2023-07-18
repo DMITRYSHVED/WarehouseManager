@@ -3,7 +3,7 @@
         <file>myApp.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>myApp.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-            <maxFileSize>1MB</maxFileSize>
+            <maxFileSize>10MB</maxFileSize>
             <maxHistory>7</maxHistory>
             <totalSizeCap>10MB</totalSizeCap>
         </rollingPolicy>
@@ -16,3 +16,5 @@
         <appender-ref ref="FILE" />
     </root>
 </configuration>
+
+

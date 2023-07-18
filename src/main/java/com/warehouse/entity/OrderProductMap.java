@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "order_product_list")
+@Table(name = "order_product_map")
 public class OrderProductMap extends AbstractEntity {
 
-    @Column
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private int id;
 
     @Column

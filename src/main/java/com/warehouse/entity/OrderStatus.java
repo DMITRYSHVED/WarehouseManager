@@ -7,9 +7,9 @@ import java.util.Objects;
 @Table(name = "order_status")
 public class OrderStatus extends AbstractEntity {
 
-    @Column
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private int id;
 
     @Column

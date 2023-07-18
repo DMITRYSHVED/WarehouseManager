@@ -1,7 +1,6 @@
 package com.warehouse.entity;
 
 import com.warehouse.util.YesNoConverter;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -10,9 +9,9 @@ import java.util.Objects;
 @Table(name = "user")
 public class User extends AbstractEntity {
 
-    @Column
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private int id;
 
     @Column
@@ -32,7 +31,7 @@ public class User extends AbstractEntity {
 
     @Column (name = "approved")
     @Convert(converter = YesNoConverter.class)
-    private boolean isApproved;
+    private boolean approved;
 
     @ManyToOne
     @JoinColumn(name = "role_id")
@@ -98,11 +97,11 @@ public class User extends AbstractEntity {
     }
 
     public boolean isApproved() {
-        return isApproved;
+        return approved;
     }
 
     public void setApproved(boolean approved) {
-        isApproved = approved;
+        this.approved = approved;
     }
 
     @Override
@@ -110,12 +109,12 @@ public class User extends AbstractEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && isApproved == user.isApproved && Objects.equals(login, user.login) && Objects.equals(password, user.password) && Objects.equals(email, user.email) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(role, user.role);
+        return id == user.id && approved == user.approved && Objects.equals(login, user.login) && Objects.equals(password, user.password) && Objects.equals(email, user.email) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(role, user.role);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, login, password, email, firstName, lastName, isApproved, role);
+        return Objects.hash(id, login, password, email, firstName, lastName, approved, role);
     }
 
     @Override
@@ -127,7 +126,7 @@ public class User extends AbstractEntity {
                 ", email='" + email + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", isApproved=" + isApproved +
+                ", isApproved=" + approved +
                 ", role=" + role +
                 '}';
     }

@@ -34,7 +34,7 @@ public class AdminController {
         User user = userManager.getById(userId);
         user.setApproved(true);
         userManager.editUser(user);
-        log.info("USER " + user.getLogin() + " был одобрен в системе");
+        log.info("Пользователь " + user.getLogin() + " был одобрен в системе");
         return "redirect:/admin";
     }
 
@@ -42,7 +42,8 @@ public class AdminController {
     public String deleteUser(@RequestParam("id") int userId) {
         User user = userManager.getById(userId);
         userManager.delete(user);
-        log.info("USER " + user.getLogin() + " был удален из системы");
+        log.info("Пользователь " + user.getLogin() + " был удален из системы");
         return "redirect:/admin";
     }
 }
+

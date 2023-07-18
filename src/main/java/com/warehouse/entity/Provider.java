@@ -8,8 +8,8 @@ import java.util.Objects;
 public class Provider extends AbstractEntity {
 
     @Id
-    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private int id;
 
     @Column(name = "company_name")

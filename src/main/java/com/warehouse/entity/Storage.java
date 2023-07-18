@@ -7,9 +7,9 @@ import java.util.Objects;
 @Table(name = "storage")
 public class Storage extends AbstractEntity {
 
-    @Column
     @Id
     @GeneratedValue
+    @Column
     private int id;
 
     @Column

@@ -7,9 +7,9 @@ import java.util.Objects;
 @Table(name = "product")
 public class Product extends AbstractEntity {
 
-    @Column
     @Id
     @GeneratedValue
+    @Column
     private int id;
 
     @Column

@@ -8,9 +8,9 @@ import java.util.Objects;
 @Table(name = "discarded_products")
 public class DiscardedProduct {
 
-    @Column
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private int id;
 
     @Column

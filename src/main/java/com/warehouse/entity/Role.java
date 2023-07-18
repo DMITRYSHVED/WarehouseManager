@@ -7,9 +7,9 @@ import java.util.Objects;
 @Table(name = "role")
 public class Role extends AbstractEntity {
 
-    @Column
     @Id
     @GeneratedValue
+    @Column
     private int id;
 
     @Column

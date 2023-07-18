@@ -51,14 +51,15 @@ public class UserController {
             return "registration";
         }
         userManager.save(userManager.toUser(userDTO));
-        log.info("user " + userDTO.getLogin() + " подал заявку на регистрацию");
+        log.info("Пользователь " + userDTO.getLogin() + " подал заявку на регистрацию");
         return "redirect:/welcome";
     }
 
     @GetMapping("/welcome")
-    public String welcomeUser(Principal principal) {
+    public String welcomeUser(Principal principal, ModelMap map) {
         User user = userManager.findByLogin(principal.getName());
         boolean admin = user.getRole().getName().equals("ROLE_ADMIN");
+        map.put("user",user);
         if (admin) {
             return "adminHome";
         }
