@@ -11,6 +11,7 @@ public class ProductOrderMapDTO {
     @NotNull(message = "выберите продукт")
     private String productId;
 
+    @Positive(message = ValidationConstants.POSITIVE_QUANTITY)
     private int quantity;
 
     public ProductOrderMapDTO() {

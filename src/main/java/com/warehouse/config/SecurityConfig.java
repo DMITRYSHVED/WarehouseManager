@@ -16,7 +16,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests().antMatchers("/admin").hasRole("ADMIN")
-                .antMatchers("/home","/awaitingAccess","/storage","/provider","/delivery","/productOrder").hasAnyRole("USER","ADMIN")
+                .antMatchers("/home", "/awaitingAccess", "/storage", "/provider", "/delivery", "/productOrder").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/registration").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin()
@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/static/**","/styles/**", "/error");
+        web.ignoring().antMatchers("/static/**", "/styles/**", "/error");
     }
 
     @Bean

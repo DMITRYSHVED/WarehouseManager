@@ -29,28 +29,23 @@ public class OrderValidator implements Validator {
         ProductOrderMapDTO productOrderMapDTO = (ProductOrderMapDTO) target;
         int orderedQuantity;
 
-        for (int i = 0; i < productOrderManager.getProductList().size(); i++) {
-            if (productOrderMapDTO.getProductId() == productOrderManager.getProductList().get(i).getProductId()) {
-                if ((productOrderMapDTO.getQuantity() + productOrderManager.getProductList().get(i).getQuantity()) >
-                        storageManager.getByProductId(productOrderMapDTO.getProductId()).getQuantity()) {
-                    errors.rejectValue("quantity", "DEFICIENCY", ValidationConstants.OUT_OF_STOCK);
-                }
-            }
-        }
         orderedQuantity = productOrderMapDTO.getQuantity();
         for (int i = 0; i < productOrderManager.getOrderedProducts().size(); i++) {
             if (productOrderMapDTO.getProductId() == productOrderManager.getOrderedProducts().get(i).getProduct().getId()) {
                 orderedQuantity += productOrderManager.getOrderedProducts().get(i).getQuantity();
             }
-            if (orderedQuantity > storageManager.getByProductId(productOrderMapDTO.getProductId()).getQuantity()) {
-                errors.rejectValue("quantity", "DEFICIENCY", ValidationConstants.OUT_OF_STOCK);
-            }
         }
-        if (productOrderMapDTO.getQuantity() > storageManager.getByProductId(productOrderMapDTO.getProductId()).getQuantity()) {
+        if (orderedQuantity > storageManager.getByProductId(productOrderMapDTO.getProductId()).getQuantity()) {
             errors.rejectValue("quantity", "DEFICIENCY", ValidationConstants.OUT_OF_STOCK);
         }
-        if (productOrderMapDTO.getQuantity() <= 0) {
-            errors.rejectValue("quantity", "NEGATIVELY", ValidationConstants.POSITIVE_QUANTITY);
+
+        for (int i = 0; i < productOrderManager.getProductList().size(); i++) {
+            if (productOrderMapDTO.getProductId() == productOrderManager.getProductList().get(i).getProductId()) {
+                if ((orderedQuantity + productOrderManager.getProductList().get(i).getQuantity()) >
+                        storageManager.getByProductId(productOrderMapDTO.getProductId()).getQuantity()) {
+                    errors.rejectValue("quantity", "DEFICIENCY", ValidationConstants.OUT_OF_STOCK);
+                }
+            }
         }
     }
 }
