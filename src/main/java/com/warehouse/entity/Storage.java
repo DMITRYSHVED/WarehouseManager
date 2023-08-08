@@ -13,7 +13,7 @@ public class Storage extends AbstractEntity {
     private int id;
 
     @Column
-    private double quantity;
+    private int quantity;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
@@ -30,11 +30,11 @@ public class Storage extends AbstractEntity {
         this.id = id;
     }
 
-    public double getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(double quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
@@ -51,7 +51,7 @@ public class Storage extends AbstractEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Storage storage = (Storage) o;
-        return id == storage.id && Double.compare(storage.quantity, quantity) == 0 && Objects.equals(product, storage.product);
+        return id == storage.id && quantity == storage.quantity && Objects.equals(product, storage.product);
     }
 
     @Override

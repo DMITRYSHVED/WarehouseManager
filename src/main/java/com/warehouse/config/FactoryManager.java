@@ -24,7 +24,7 @@ public class FactoryManager {
             configuration.addAnnotatedClass(Provider.class);
             configuration.addAnnotatedClass(Delivery.class);
             configuration.addAnnotatedClass(DeliveryProductMap.class);
-            configuration.addAnnotatedClass(OrderProductMap.class);
+            configuration.addAnnotatedClass(ProductOrderMap.class);
             configuration.addAnnotatedClass(OrderStatus.class);
             configuration.addAnnotatedClass(Product.class);
             configuration.addAnnotatedClass(ProductOrder.class);
@@ -33,6 +33,7 @@ public class FactoryManager {
             configuration.addAnnotatedClass(Storage.class);
             configuration.addAnnotatedClass(User.class);
             configuration.addAnnotatedClass(DiscardedProduct.class);
+            configuration.addAnnotatedClass(DeliveryStatus.class);
             configuration.configure();
             StandardServiceRegistry registryBuilder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
             sessionFactory = configuration.buildSessionFactory(registryBuilder);

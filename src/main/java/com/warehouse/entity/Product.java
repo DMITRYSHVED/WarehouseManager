@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Product extends AbstractEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private int id;
 
@@ -18,12 +18,13 @@ public class Product extends AbstractEntity {
     @Column
     private String name;
 
+    @Column
+    private String description;
+
     @ManyToOne
     @JoinColumn(name = "product_type_id")
     private ProductType productType;
 
-    @ManyToOne
-    private Storage storage;
 
     public Product() {
     }
@@ -60,17 +61,25 @@ public class Product extends AbstractEntity {
         this.productType = productType;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return id == product.id && code == product.code && Objects.equals(name, product.name) && Objects.equals(productType, product.productType) && Objects.equals(storage, product.storage);
+        return id == product.id && code == product.code && Objects.equals(name, product.name) && Objects.equals(description, product.description) && Objects.equals(productType, product.productType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, code, name, productType, storage);
+        return Objects.hash(id, code, name, description, productType);
     }
 
     @Override
@@ -79,8 +88,8 @@ public class Product extends AbstractEntity {
                 "id=" + id +
                 ", code=" + code +
                 ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
                 ", productType=" + productType +
-                ", storage=" + storage +
                 '}';
     }
 }

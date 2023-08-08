@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Карточка товара</title>
+    <meta charset="UTF-8">
+    <script src="/js/search.js"></script>
+    <link rel="stylesheet" href="/styles/commonStyle.css">
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+
+<div class="container mt-5">
+    <form class="needs-validation" th:action="@{/product/editProduct}" method="post" th:object="${product}">
+        <h2 id="basic-example">Карточка товара <a class="anchor-link" href="#basic-example"
+                                                           aria-label="Link to this section: Basic example"></a></h2>
+        <input type="hidden" name="id" th:value="*{id}">
+        <div class="row g-3">
+            <div class="col-sm-4">
+                <label for="name" class="form-label">Наименование</label>
+                <input type="text" th:value="*{name}" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="col-sm-4">
+                <label for="code" class="form-label">Код товара</label>
+                <input type="number" th:value="*{code}" class="form-control" id="code" name="code" required>
+            </div>
+            <div class="col-sm-4">
+                <label for="productType" class="form-label">Тип товара</label>
+                <select class="form-select" id="productType" name="productType" required>
+                    <option th:value="*{productType.id}" th:text="*{productType.category}">Веберите тип</option>
+                    <option th:each="productType : ${productTypes}" th:value="${productType.id}"
+                            th:text="${productType.category}"></option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-text">Описание</span>
+                    <textarea th:value="*{description}" th:text="*{description}"  name="description" class="form-control" aria-label="With textarea"></textarea>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-text">Категория</span>
+                    <textarea th:value="*{productType.categoryDescription}" th:text="*{productType.categoryDescription}" class="form-control" aria-label="With textarea" readonly></textarea>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button class="btn btn-primary" type="submit">Подтвердить</button>
+                    </div>
+                    <div class="col-md-6">
+                        <a class="btn btn-danger" th:href="@{/product/deleteProduct(id=${product.id})}">Удалить из системы</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="my-4">
+    </form>
+</div>
+</body>
+</html>

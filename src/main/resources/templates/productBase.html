@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Товары в системе</title>
+    <meta charset="UTF-8">
+    <script src="/js/search.js"></script>
+    <link rel="stylesheet" href="/styles/commonStyle.css">
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<div class="container mt-5">
+    <form class="needs-validation" th:action="@{/product/createProduct}" method="post">
+        <h2 id="basic-example">Создание карточки товара <a class="anchor-link" href="#basic-example"
+                                                           aria-label="Link to this section: Basic example"></a></h2>
+        <div class="row g-3">
+            <div class="col-sm-4">
+                <label for="name" class="form-label">Наименование</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+
+            <div class="col-sm-4">
+                <label for="code" class="form-label">Код товара</label>
+                <input type="number" class="form-control" id="code" name="code" required>
+            </div>
+            <div class="col-sm-4">
+                <label for="productType" class="form-label">Тип товара</label>
+                <select class="form-select" id="productType" name="productType" required>
+                    <option value="" disabled selected>Веберите тип</option>
+                    <option th:each="productType : ${productTypes}" th:value="${productType.id}"
+                            th:text="${productType.category}"></option>
+                </select>
+            </div>
+            <div class="col-md-8">
+                <div class="input-group">
+                    <span class="input-group-text">Описание</span>
+                    <textarea type="text" name="description" class="form-control" aria-label="With textarea"></textarea>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <button class="w-70 h-20 btn btn-primary btn-lg" type="submit">Зарегистрировать товар</button>
+            </div>
+        </div>
+        <hr class="my-4">
+    </form>
+    <br>
+    <div>
+        <div class="row">
+            <div class="col-md-3">
+                <h2>Товары в системе</h2>
+            </div>
+            <div th:if="${errors}" class="col-md-9">
+                <p style="color: red" th:each="error : ${errors}" th:text="${error.defaultMessage}">Error message</p>
+            </div>
+        </div>
+        <div class="table-container">
+            <table border="1" align="center">
+                <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Код</th>
+                    <th>Наименование</th>
+                    <th>Категория</th>
+                    <th>
+                        <div>
+                            <input type="text" id="elastic" placeholder="Поиск">
+                        </div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody class="elastic">
+
+                <tr th:each="product, stat : ${productBase}">
+                    <td th:text="${stat.index + 1}"></td>
+                    <td th:text="${product.code}"></td>
+                    <td><a th:href="@{/product/editProduct/(id=${product.id})}"
+                           th:text="${product.name}"></a></td>
+                    <td th:text="${product.productType.category}"></td>
+                    <td>
+                        <a th:href="@{/product/deleteProduct(id = ${product.id})}" class="btn btn-primary">Удалить</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,5 +1,7 @@
 package com.warehouse.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
@@ -14,14 +16,15 @@ public class Delivery extends AbstractEntity {
     private int id;
 
     @Column
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
-
-    @Column
-    private int quantity;
-
     @ManyToOne
     @JoinColumn(name = "provider_id")
     private Provider provider;
+
+    @ManyToOne
+    @JoinColumn(name = "delivery_status_id")
+    private DeliveryStatus deliveryStatus;
 
     public Delivery() {
     }
@@ -42,14 +45,6 @@ public class Delivery extends AbstractEntity {
         this.date = date;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
     public Provider getProvider() {
         return provider;
     }
@@ -58,17 +53,25 @@ public class Delivery extends AbstractEntity {
         this.provider = provider;
     }
 
+    public DeliveryStatus getDeliveryStatus() {
+        return deliveryStatus;
+    }
+
+    public void setDeliveryStatus(DeliveryStatus deliveryStatus) {
+        this.deliveryStatus = deliveryStatus;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Delivery delivery = (Delivery) o;
-        return id == delivery.id && quantity == delivery.quantity && Objects.equals(date, delivery.date) && Objects.equals(provider, delivery.provider);
+        return id == delivery.id && Objects.equals(date, delivery.date) && Objects.equals(provider, delivery.provider);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, date, quantity, provider);
+        return Objects.hash(id, date, provider);
     }
 
     @Override
@@ -76,7 +79,6 @@ public class Delivery extends AbstractEntity {
         return "Delivery{" +
                 "id=" + id +
                 ", date=" + date +
-                ", quantity=" + quantity +
                 ", provider=" + provider +
                 '}';
     }

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Создание поставки</title>
+    <meta charset="UTF-8">
+    <script src="/js/search.js"></script>
+    <link rel="stylesheet" href="/styles/commonStyle.css">
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<div class="container mt-5">
+    <form class="needs-validation" th:action="@{/delivery/createDeliveryProductList}" method="post">
+        <div class="row g-3">
+            <div class="col-sm-3">
+                <h2 id="basic-example">Сборка товаров<a class="anchor-link" href="#basic-example"
+                                                        aria-label="Link to this section: Basic example"></a></h2>
+                <div class="select-box">
+                    <div class="select-option">
+                        <input type="text" placeholder="Выберите товар" id="soValue" readonly name=""
+                               required>
+                        <input type="hidden" id="productId" required name="productId">
+                    </div>
+                    <div class="content">
+                        <div class="search">
+                            <input type="text" id="optionSearch" placeholder="Поиск" name="">
+                        </div>
+                        <ul class="options">
+                            <li th:each="product : ${products}"
+                                th:value="${product.id}" th:text="${product.name} + ' | '+ ${product.id}"
+                                data-product-id="${product.id}" data-product-text="${product.name}">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <br>
+                <br>
+                <input type="number" class="form-control" placeholder="Количество" id="quantity" name="quantity"
+                       required>
+                <br>
+                <button class="w-70 h-20 btn btn-primary btn-lg" type="submit">Добавить к сборке</button>
+            </div>
+
+            <div class="col-sm-1">
+
+            </div>
+            <div class="col-sm-4">
+                <table class="table">
+                    <thead>
+                    <h3>Лист сборки</h3>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Товар / Количество</th>
+                        <th><a th:href="@{/delivery/deleteProducts}" type="button" class="btn btn-danger">Очистить</a>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="product, stat : ${productList}">
+                        <th th:text="${stat.index + 1}" scope="row"></th>
+                        <td th:text="${product}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+    </form>
+    <hr class="my-4">
+    <br>
+    <form class="needs-validation" th:action="@{/delivery/createDelivery}" method="post">
+        <div class="row g-3">
+            <div class="col-sm-3">
+                <h2 >Поставка<a class="anchor-link" href="#basic-example"
+                                                        aria-label="Link to this section: Basic example"></a></h2>
+                <div class="select-box1">
+                    <div class="select-option1">
+                        <input type="text" placeholder="Выберите поставщика" id="soValue1" readonly name=""
+                               required>
+                        <input type="hidden" id="providerId" required name="providerId">
+                    </div>
+                    <div class="content1">
+                        <div class="search1">
+                            <input type="text" id="optionSearch1" placeholder="Поиск" name="">
+                        </div>
+                        <ul class="options1">
+                            <li th:each="provider : ${providers}"
+                                th:value="${provider.id}" th:text="${provider.companyName} + ' | '+ ${provider.id}"
+                                th:if = "${provider.active == true}">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <br>
+                <br>
+                <input type="date" class="form-control" placeholder="Дата поставки" id="date" name="date"
+                       required>
+            </div>
+            <div class="col-sm-3">
+                <br>
+                <br>
+                <button class="w-70 h-20 btn btn-primary btn-lg" type="submit">Подтвердить поставку</button>
+            </div>
+            <div th:if="${errors}" class="col-sm-3">
+                <p style="color: red" th:each="error : ${errors}" th:text="${error.defaultMessage}">Error message</p>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<script>
+
+    const selectBox = document.querySelector('.select-box');
+    const selectOption = document.querySelector('.select-option');
+    const soValue = document.querySelector('#soValue');
+    const optionSearch = document.querySelector('#optionSearch');
+    const options = document.querySelector('.options');
+    const optionsList = document.querySelectorAll('.options li');
+    const productIdInput = document.querySelector('#productId');
+
+
+    selectOption.addEventListener('click', function () {
+        selectBox.classList.toggle('active');
+    })
+
+    optionsList.forEach(function (optionsListSingle) {
+        optionsListSingle.addEventListener('click', function () {
+            text = this.textContent;
+            parts = text.split('|');
+            productIdInput.value = parts[1].trim();
+            soValue.value = parts[0].trim();
+            selectBox.classList.remove('active');
+        })
+    });
+
+
+    optionSearch.addEventListener('keyup', function () {
+        var filter, li, i, textValue;
+        filter = optionSearch.value.toUpperCase();
+        li = options.getElementsByTagName('li');
+        for (i = 0; i < li.length; i++) {
+            liCount = li[i];
+            textValue = liCount.textContent || liCount.innerText;
+            if (textValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = '';
+            } else {
+                li[i].style.display = 'none';
+            }
+        }
+    })
+
+
+    const selectBox1 = document.querySelector('.select-box1');
+    const selectOption1 = document.querySelector('.select-option1');
+    const soValue1 = document.querySelector('#soValue1');
+    const optionSearch1 = document.querySelector('#optionSearch1');
+    const options1 = document.querySelector('.options1');
+    const optionsList1 = document.querySelectorAll('.options1 li');
+    const providerIdInput = document.querySelector('#providerId');
+
+    selectOption1.addEventListener('click', function () {
+        selectBox1.classList.toggle('active');
+    })
+
+    optionsList1.forEach(function (optionsListSingle) {
+        optionsListSingle.addEventListener('click', function () {
+            text = this.textContent;
+            parts = text.split('|');
+            providerIdInput.value = parts[1].trim();
+            soValue1.value = parts[0].trim();
+            selectBox1.classList.remove('active');
+        })
+    });
+
+    optionSearch1.addEventListener('keyup', function () {
+        var filter, li, i, textValue;
+        filter = optionSearch1.value.toUpperCase();
+        li = options1.getElementsByTagName('li');
+        for (i = 0; i < li.length; i++) {
+            liCount = li[i];
+            textValue = liCount.textContent || liCount.innerText;
+            if (textValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = '';
+            } else {
+                li[i].style.display = 'none';
+            }
+        }
+    })
+</script>
+</body>
+</html>
+

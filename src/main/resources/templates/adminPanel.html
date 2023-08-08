@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="/styles/adminStyle.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="/styles/commonStyle.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
     <meta charset="UTF-8">
-    <title>ADMIN PANEL</title>
+    <script src="/js/search.js"></script>
+    <title>Панель администратора</title>
 </head>
 <body>
+<header th:insert="blocks/header :: header"></header>
 <div class="container">
     <div class="row">
         <div class="col">
+            <br>
             <h2>ПАНЕЛЬ АДМИНИСТРАТОРА</h2>
-            <div th:insert="~{part :: header}"></div>
-            <br><br>
+            <br>
             <div class="log-container">
                 <ul>
                     <li th:each="item, iterStat : ${logs}" th:if="${iterStat.index} &lt; 20">
@@ -34,82 +39,115 @@
             </ul>
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="allUsers">
-                    <table border="1" align="center">
-                        <thead>
-                        <tr>
-                            <th>LOGIN</th>
-                            <th>EMAIL</th>
-                            <th>FIRST_NAME</th>
-                            <th>LAST_NAME</th>
-                            <th>APPROVE_STATUS</th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="user : ${users}">
-                            <td th:text="${user.login}"></td>
-                            <td th:text="${user.email}"></td>
-                            <td th:text="${user.firstName}"></td>
-                            <td th:text="${user.lastName}"></td>
-                            <td>
+                    <div class="table-container">
+                        <table border="1" align="center">
+                            <thead>
+                            <tr>
+                                <th>Логин</th>
+                                <th>Почта</th>
+                                <th>Имя</th>
+                                <th>Фамилия</th>
+                                <th>Доступ</th>
+                                <th>
+                                    <div>
+                                        <input type="text" id="elastic" placeholder="Поиск">
+                                    </div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody class="elastic">
+                            <tr th:each="user : ${users}">
+                                <td th:text="${user.login}"></td>
+                                <td th:text="${user.email}"></td>
+                                <td th:text="${user.firstName}"></td>
+                                <td th:text="${user.lastName}"></td>
+                                <td>
                                 <span th:switch="${user.isApproved()}">
                                     <span th:case="false" style="color: red">не подтвержден</span>
                                     <span th:case="true" style="color: green ">подтвержден</span>
                                 </span>
-                            </td>
-                            <td>
+                                </td>
+                                <td>
+                                <span th:switch="${user.role.id}">
+                            <span th:case="1">Администратор</span>
+                            <span th:case="2">
                                 <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button type="button" class="btn btn-primary dropdown-toggle"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
                                         Опции
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" th:href="@{/admin/access(id=${user.id})}">Подтвердить</a></li>
-                                        <li><a class="dropdown-item" th:href="@{/admin/delete(id=${user.id})}">Удалить</a></li>
+                                        <li><a class="dropdown-item"
+                                               th:href="@{/admin/access(id=${user.id},status=true)}"
+                                               th:if="${user.approved == false}">Подтвердить</a></li>
+                                        <li><a class="dropdown-item"
+                                               th:href="@{/admin/delete(id=${user.id})}">Удалить</a></li>
+                                        <li><a class="dropdown-item"
+                                               th:href="@{/admin/access(id=${user.id},status=false)}"
+                                               th:if="${user.approved == true}">Запретить</a></li>
                                     </ul>
                                 </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                            </span>
+                        </span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="unapprovedUsers">
-                    <table border="1" align="center">
-                        <thead>
-                        <tr>
-                            <th>LOGIN</th>
-                            <th>EMAIL</th>
-                            <th>FIRST_NAME</th>
-                            <th>LAST_NAME</th>
-                            <th>APPROVE_STATUS</th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="user : ${users}" th:unless="${user.isApproved()}">
-                            <td th:text="${user.login}"></td>
-                            <td th:text="${user.email}"></td>
-                            <td th:text="${user.firstName}"></td>
-                            <td th:text="${user.lastName}"></td>
-                            <td>
+                    <div class="table-container">
+                        <table border="1" align="center">
+                            <thead>
+                            <tr>
+                                <th>Логин</th>
+                                <th>Почта</th>
+                                <th>Имя</th>
+                                <th>Фамилия</th>
+                                <th>Доступ</th>
+                                <th>
+                                    <div>
+                                        <input type="text" id="elastic1" placeholder="Поиск">
+                                    </div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody class="elastic1">
+                            <tr th:each="user : ${users}" th:unless="${user.isApproved()}">
+                                <td th:text="${user.login}"></td>
+                                <td th:text="${user.email}"></td>
+                                <td th:text="${user.firstName}"></td>
+                                <td th:text="${user.lastName}"></td>
+                                <td>
                                 <span th:switch="${user.isApproved()}">
                                     <span th:case="false" style="color: red">не подтвержден</span>
                                     <span th:case="true" style="color: green">подтвержден</span>
                                 </span>
-                            </td>
-                            <td>
+                                </td>
+                                <td>
+                                <span th:switch="${user.role.id}">
+                            <span th:case="1">Администратор</span>
+                            <span th:case="2">
                                 <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button type="button" class="btn btn-primary dropdown-toggle"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
                                         Опции
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" th:href="@{/admin/access(id=${user.id})}">Подтвердить</a></li>
-                                        <li><a class="dropdown-item" th:href="@{/admin/delete(id=${user.id})}">Удалить</a></li>
+                                        <li><a class="dropdown-item"
+                                               th:href="@{/admin/access(id=${user.id},status=true)}"
+                                               th:if="${user.approved == false}">Подтвердить</a></li>
+                                        <li><a class="dropdown-item"
+                                               th:href="@{/admin/delete(id=${user.id})}">Удалить</a></li>
                                     </ul>
                                 </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                            </span>
+                        </span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

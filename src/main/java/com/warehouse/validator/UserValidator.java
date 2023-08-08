@@ -26,13 +26,13 @@ public class UserValidator implements Validator {
         UserDTO user = (UserDTO) target;
 
         if (userManager.findByLogin(user.getLogin())!=null){
-            errors.rejectValue("login", "DUPLICATE",ValidationConstants.LOGIN_DUPLICATE);
+            errors.rejectValue("login", "DUPLICATE","логин занят");
         }
         if (userManager.findByEmail(user.getEmail())!=null){
-            errors.rejectValue("email","DUPLICATE",ValidationConstants.EMAIL_DUPLICATE);
+            errors.rejectValue("email","DUPLICATE","такая почта уже используется");
         }
         if (!user.getConfirmPassword().equals(user.getPassword())){
-            errors.rejectValue("confirmPassword","DIFFERENT",ValidationConstants.DIFFERENT_PASSWORD);
+            errors.rejectValue("confirmPassword","DIFFERENT","пароли не совпадают");
         }
     }
 }

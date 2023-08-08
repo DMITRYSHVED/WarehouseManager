@@ -11,8 +11,8 @@ import static com.warehouse.config.FactoryManager.getSessionFactory;
 @Repository
 public class DeliveryProductMapDao extends AbstractEntityDao {
 
-    public List<DeliveryProductMapDao> getList() {
-        List<DeliveryProductMapDao> deliveryProductList;
+    public List<DeliveryProductMap> getList() {
+        List<DeliveryProductMap> deliveryProductList;
         Session session = getSessionFactory().openSession();
         deliveryProductList = session.createQuery("FROM DeliveryProductMap ").list();
         session.close();

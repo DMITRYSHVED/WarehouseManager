@@ -1,7 +1,10 @@
 package com.warehouse.dao;
 
+import com.warehouse.entity.Product;
 import com.warehouse.entity.Provider;
+import com.warehouse.entity.Storage;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

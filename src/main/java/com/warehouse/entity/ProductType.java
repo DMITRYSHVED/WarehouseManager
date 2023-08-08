@@ -15,11 +15,8 @@ public class ProductType extends AbstractEntity {
     @Column
     private String category;
 
-    @Column
-    private String unit;
-
-    @Column
-    private String description;
+    @Column(name = "category_description")
+    private String categoryDescription;
 
     public ProductType() {
     }
@@ -40,20 +37,12 @@ public class ProductType extends AbstractEntity {
         this.category = category;
     }
 
-    public String getUnit() {
-        return unit;
+    public String getCategoryDescription() {
+        return categoryDescription;
     }
 
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCategoryDescription(String description) {
+        this.categoryDescription = description;
     }
 
     @Override
@@ -61,12 +50,12 @@ public class ProductType extends AbstractEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductType that = (ProductType) o;
-        return id == that.id && Objects.equals(category, that.category) && Objects.equals(unit, that.unit) && Objects.equals(description, that.description);
+        return id == that.id && Objects.equals(category, that.category) && Objects.equals(categoryDescription, that.categoryDescription);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, category, unit, description);
+        return Objects.hash(id, category, categoryDescription);
     }
 
     @Override
@@ -74,8 +63,7 @@ public class ProductType extends AbstractEntity {
         return "ProductType{" +
                 "id=" + id +
                 ", category='" + category + '\'' +
-                ", unit='" + unit + '\'' +
-                ", description='" + description + '\'' +
+                ", categoryDescription='" + categoryDescription + '\'' +
                 '}';
     }
 }

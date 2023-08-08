@@ -10,16 +10,16 @@
     <h1>Регистрация</h1>
     <label for="firstName">Имя</label>
     <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="error"></span>
-    <input type="text" id="firstName" name="firstName" required>
+    <input type="text" id="firstName" name="firstName" th:value="*{firstName}" required>
     <label for="lastName">Фамилия</label>
     <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error"></span>
-    <input type="text" id="lastName" name="lastName" required>
+    <input type="text" id="lastName" name="lastName" th:value="*{lastName}" required>
     <label for="email">Почта</label>
     <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></span>
-    <input type="email" id="email" name="email" required>
+    <input type="email" id="email" name="email" th:value="*{email}" required>
     <label for="login">Логин</label>
     <span th:if="${#fields.hasErrors('login')}" th:errors="*{login}" class="error"></span>
-    <input type="text" id="login" name="login" required>
+    <input type="text" id="login" name="login" th:value="*{login}"  required>
     <label for="password">Пароль</label>
     <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></span>
     <input type="password" id="password" name="password" required>

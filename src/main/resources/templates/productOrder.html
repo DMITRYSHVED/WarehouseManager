@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Карточка заказа</title>
+    <meta charset="UTF-8">
+    <script src="/js/search.js"></script>
+    <link rel="stylesheet" href="/styles/commonStyle.css">
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<div class="container mt-5">
+    <form class="needs-validation" method="post">
+        <div class="row g-3">
+            <h2 >Карточка заказа <a class="anchor-link" href="#basic-example"
+                                      aria-label="Link to this section: Basic example"></a></h2>
+            <div class="col-sm-3">
+                <h3>Дата</h3>
+                <div class="row">
+                    <br>
+                    <div class="select-box1">
+                        <input type="text" th:value="${#dates.format(productOrder.date, 'dd.MM.yyyy')}" class="form-control" placeholder="Выберите поставщика" readonly name=""
+                               required>
+                    </div>
+                </div>
+                <br>
+                <h3>Клиент</h3>
+                <div class="row">
+                    <br>
+                    <div class="select-box1">
+
+                        <input type="text" th:value="${productOrder.clientName}" class="form-control" placeholder="Выберите поставщика"  readonly name=""
+                               required>
+                    </div>
+                </div>
+                <br>
+                <h3>Адресс</h3>
+                <div class="row">
+                    <br>
+                    <div class="select-box1">
+
+                        <input type="text" th:value="${productOrder.clientAddress}" class="form-control" placeholder="Выберите поставщика" readonly name=""
+                               required>
+                    </div>
+                </div>
+                <br>
+                <h3>Связь</h3>
+                <div class="row">
+                    <br>
+                    <div class="select-box1">
+
+                        <input type="text" th:value="${productOrder.clientContact}" class="form-control" placeholder="Выберите поставщика"  readonly name=""
+                               required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-1">
+            </div>
+            <div class="col-sm-4">
+                <div class="row">
+                    <table class="table">
+                        <thead>
+                        <h3>Лист сборки</h3>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Товар / Количество</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="product, stat : ${productList}">
+                            <th th:text="${stat.index + 1}" scope="row"></th>
+                            <td th:text="${product}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-3">
+                <div class="row">
+                    <a style="width: 150px" th:if="${productOrder.orderStatus.id==1}" th:href="@{/productOrder/processOrder(id=${productOrder.id})}" class="btn btn-outline-success">Обработать заказ</a>
+                </div>
+                <br>
+                <div class="row">
+                    <a style="width: 150px" th:if="${productOrder.orderStatus.id==1}" th:href="@{/productOrder/deleteOrder(id=${productOrder.id})}" class="btn btn-outline-danger">Отменить заказ</a>
+                </div>
+                <br>
+                <a style="width: 150px" th:if="${productOrder.orderStatus.id==2}" th:href="@{/productOrder/deleteOrder(id=${productOrder.id})}" class="btn btn-outline-danger">Забыть о заказе</a>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,16 +1,10 @@
 package com.warehouse.controller;
 
-import ch.qos.logback.classic.LoggerContext;
-import ch.qos.logback.core.util.StatusPrinter;
 import com.warehouse.dto.UserDTO;
 import com.warehouse.entity.User;
-import com.warehouse.manager.CustomUserDetailsManager;
-import com.warehouse.manager.UserManager;
+import com.warehouse.manager.*;
 import com.warehouse.validator.UserValidator;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -21,16 +15,27 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.stream.Collectors;
 
 @Controller
 @Slf4j
 public class UserController {
 
     @Autowired
-    UserManager userManager;
+    private UserManager userManager;
 
     @Autowired
-    UserValidator userValidator;
+    private UserValidator userValidator;
+
+    @Autowired
+    private StorageManager storageManager;
+
+    @Autowired
+    private DeliveryManager deliveryManager;
+
+    @Autowired
+    private ProductOrderManager productOrderManager;
+
 
     @GetMapping("/login")
     public String userLogin() {
@@ -52,21 +57,24 @@ public class UserController {
         }
         userManager.save(userManager.toUser(userDTO));
         log.info("Пользователь " + userDTO.getLogin() + " подал заявку на регистрацию");
-        return "redirect:/welcome";
+        return "redirect:/home";
     }
 
-    @GetMapping("/welcome")
+    @GetMapping("/home")
     public String welcomeUser(Principal principal, ModelMap map) {
+        map.put("logs", userManager.getUsersLog());
+        map.put("recommendations", storageManager.getStorageLog());
         User user = userManager.findByLogin(principal.getName());
-        boolean admin = user.getRole().getName().equals("ROLE_ADMIN");
         map.put("user",user);
-        if (admin) {
-            return "adminHome";
-        }
+        map.put("storageQuantity" , storageManager.getTotalQuantity());
+        map.put("deliveryQuantity", deliveryManager.getDeliveryList().stream()
+                .filter(delivery -> delivery.getDeliveryStatus().getId() == 1).toList().size());
+        map.put("orderQuantity", productOrderManager.getProductOrders().stream()
+                .filter(delivery -> delivery.getOrderStatus().getId() == 1).toList().size());
         if (!user.isApproved()) {
             return "approvalWaitingPage";
         }
-        return "userHome";
+        return "home";
     }
 
     @GetMapping("/awaitingAccess")

@@ -6,15 +6,12 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "discarded_products")
-public class DiscardedProduct {
+public class DiscardedProduct extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private int id;
-
-    @Column
-    private Date date;
 
     @Column
     private int quantity;
@@ -32,14 +29,6 @@ public class DiscardedProduct {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public int getQuantity() {
@@ -63,19 +52,18 @@ public class DiscardedProduct {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DiscardedProduct that = (DiscardedProduct) o;
-        return id == that.id && quantity == that.quantity && Objects.equals(date, that.date) && Objects.equals(product, that.product);
+        return id == that.id && quantity == that.quantity && Objects.equals(product, that.product);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, date, quantity, product);
+        return Objects.hash(id, quantity, product);
     }
 
     @Override
     public String toString() {
         return "DiscardedProduct{" +
                 "id=" + id +
-                ", date=" + date +
                 ", quantity=" + quantity +
                 ", product=" + product +
                 '}';

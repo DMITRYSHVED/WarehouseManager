@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/styles/commonStyle.css">
+    <title>Главная</title>
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<div class="container mt-5">
+    <div class="row">
+        <br>
+        <div style="align-content: inherit" class="col-md-4">
+            <h2 th:text="'Добро пожаловать, ' + ${user.firstName} + '!'"></h2>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-5">
+            <div class="row">
+                <div style="width: 150px" class="stock-container">
+                    <div class="stock-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div class="stock-info">
+                        <span class="stock-label">Поставок в пути:</span>
+                        <span class="stock-count" th:text="${deliveryQuantity}"></span>
+                    </div>
+                </div>
+                <div style="width: 150px" class="stock-container">
+                    <div class="stock-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div class="stock-info">
+                        <span class="stock-label">Заказы в обработке:</span>
+                        <span class="stock-count" th:text="${orderQuantity}"></span>
+                    </div>
+                </div>
+                <div style="width: 150px" class="stock-container">
+                    <div class="stock-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div class="stock-info">
+                        <span class="stock-label">Товаров на складе:</span>
+                        <span class="stock-count" th:text="${storageQuantity}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <hr>
+    <div class="row">
+        <div class="col-md-7">
+            <h2>Последние события</h2>
+            <div class="log-container">
+                <ul>
+                    <li th:each="item, iterStat : ${logs}" th:if="${iterStat.index} &lt; 50">
+                        <span th:text="${logs[logs.size() - iterStat.index - 1]}"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <h2>Рекомендации</h2>
+            <div class="log-container">
+                <ul>
+                    <li style="color: #ff3737;" th:each="item, iterStat : ${recommendations}"
+                        th:if="${iterStat.index} &lt; 15">
+                        <span th:text="${recommendations[recommendations.size() - iterStat.index - 1]}"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>
+
+

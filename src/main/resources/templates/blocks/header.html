@@ -1,0 +1,24 @@
+<div th:fragment = "header">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="/home" class="nav-link px-2 link-secondary">Главная</a></li>
+                <li><a th:if="${user.role.id == 1}" href="/admin" class="nav-link px-2 link-body-emphasis">Администратор</a></li>
+                <li><a href="/storage" class="nav-link px-2 link-body-emphasis">Склад</a></li>
+                <li><a href="/delivery/deliveries" class="nav-link px-2 link-body-emphasis">Поставки</a></li>
+                <li><a href="/productOrder" class="nav-link px-2 link-body-emphasis">Заказы</a></li>
+                <li><a href="/product/productBase" class="nav-link px-2 link-body-emphasis">Карточки товаров</a></li>
+            </ul>
+                <div class="dropdown text-end">
+                    <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="/static/person.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                        <strong th:text="${user.login}">login</strong>
+                    </a>
+                    <ul class="dropdown-menu text-small">
+                        <li><a class="dropdown-item" href="/logout" style="color: red">Выход</a></li>
+                    </ul>
+                </div>
+        </div>
+    </div>
+</div>
+

@@ -1,5 +1,4 @@
 body {
-    background-image: url("/static/background.png");
     background-size: cover;
     font-family: Arial, sans-serif;
     margin: 0;
@@ -55,5 +54,7 @@ a {
  .error {
      color: red;
  }
+
+
 
 

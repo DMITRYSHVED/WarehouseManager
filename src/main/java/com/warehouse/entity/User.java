@@ -3,6 +3,7 @@ package com.warehouse.entity;
 import com.warehouse.util.YesNoConverter;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -104,6 +105,7 @@ public class User extends AbstractEntity {
         this.approved = approved;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -126,7 +128,7 @@ public class User extends AbstractEntity {
                 ", email='" + email + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", isApproved=" + approved +
+                ", approved=" + approved +
                 ", role=" + role +
                 '}';
     }

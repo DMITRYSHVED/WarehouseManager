@@ -1,12 +1,11 @@
 package com.warehouse.entity;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "order_product_map")
-public class OrderProductMap extends AbstractEntity {
+public class ProductOrderMap extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,17 +13,17 @@ public class OrderProductMap extends AbstractEntity {
     private int id;
 
     @Column
-    private double quantity;
+    private int quantity;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "product_id")
-    private List<Product> products;
+    private Product product;
 
     @ManyToOne
     @JoinColumn(name = "product_order_id")
     private ProductOrder productOrder;
 
-    public OrderProductMap() {
+    public ProductOrderMap() {
     }
 
     public int getId() {
@@ -35,20 +34,20 @@ public class OrderProductMap extends AbstractEntity {
         this.id = id;
     }
 
-    public double getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(double quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public ProductOrder getProductOrder() {
@@ -63,21 +62,21 @@ public class OrderProductMap extends AbstractEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OrderProductMap that = (OrderProductMap) o;
-        return id == that.id && Double.compare(that.quantity, quantity) == 0 && Objects.equals(products, that.products) && Objects.equals(productOrder, that.productOrder);
+        ProductOrderMap that = (ProductOrderMap) o;
+        return id == that.id && quantity == that.quantity && Objects.equals(product, that.product) && Objects.equals(productOrder, that.productOrder);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, quantity, products, productOrder);
+        return Objects.hash(id, quantity, product, productOrder);
     }
 
     @Override
     public String toString() {
-        return "OrderProductMap{" +
+        return "ProductOrderMap{" +
                 "id=" + id +
                 ", quantity=" + quantity +
-                ", products=" + products +
+                ", product=" + product +
                 ", productOrder=" + productOrder +
                 '}';
     }

@@ -18,7 +18,7 @@
         <!-- Маппинг классов -->
         <mapping class="com.warehouse.entity.Delivery"/>
         <mapping class="com.warehouse.entity.DeliveryProductMap"/>
-        <mapping class="com.warehouse.entity.OrderProductMap"/>
+        <mapping class="com.warehouse.entity.ProductOrderMap"/>
         <mapping class="com.warehouse.entity.OrderStatus"/>
         <mapping class="com.warehouse.entity.Product"/>
         <mapping class="com.warehouse.entity.ProductOrder"/>
@@ -27,5 +27,6 @@
         <mapping class="com.warehouse.entity.Role"/>
         <mapping class="com.warehouse.entity.Storage"/>
         <mapping class="com.warehouse.entity.User"/>
+        <mapping class="com.warehouse.entity.DeliveryStatus"/>
     </session-factory>
 </hibernate-configuration>

@@ -1,7 +1,6 @@
 package com.warehouse.entity;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -14,11 +13,11 @@ public class DeliveryProductMap extends AbstractEntity {
     private int id;
 
     @Column
-    private double quantity;
+    private int quantity;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "product_id")
-    private List <Product> products;
+    private Product product;
 
     @ManyToOne
     @JoinColumn(name = "delivery_id")
@@ -35,20 +34,20 @@ public class DeliveryProductMap extends AbstractEntity {
         this.id = id;
     }
 
-    public double getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(double quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public Delivery getDelivery() {
@@ -64,12 +63,12 @@ public class DeliveryProductMap extends AbstractEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DeliveryProductMap that = (DeliveryProductMap) o;
-        return id == that.id && Double.compare(that.quantity, quantity) == 0 && Objects.equals(products, that.products) && Objects.equals(delivery, that.delivery);
+        return id == that.id && quantity == that.quantity && Objects.equals(product, that.product) && Objects.equals(delivery, that.delivery);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, quantity, products, delivery);
+        return Objects.hash(id, quantity, product, delivery);
     }
 
     @Override
@@ -77,7 +76,7 @@ public class DeliveryProductMap extends AbstractEntity {
         return "DeliveryProductMap{" +
                 "id=" + id +
                 ", quantity=" + quantity +
-                ", products=" + products +
+                ", products=" + product +
                 ", delivery=" + delivery +
                 '}';
     }

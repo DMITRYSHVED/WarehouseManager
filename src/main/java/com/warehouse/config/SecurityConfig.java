@@ -16,7 +16,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests().antMatchers("/admin").hasRole("ADMIN")
-                .antMatchers("/welcome","/awaitingAccess").hasAnyRole("USER","ADMIN")
+                .antMatchers("/home","/awaitingAccess","/storage","/provider","/delivery","/productOrder").hasAnyRole("USER","ADMIN")
                 .antMatchers("/registration").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin()
@@ -24,13 +24,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/login")
                 .usernameParameter("login")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/welcome")
+                .defaultSuccessUrl("/home")
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("/login").permitAll();
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/static/**","/styles/**");
+        web.ignoring().antMatchers("/static/**","/styles/**", "/error");
     }
 
     @Bean
