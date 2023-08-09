@@ -15,6 +15,15 @@
 <header th:insert="blocks/header :: header"></header>
 <div class="container mt-5">
     <h2>Склад</h2>
+
+    <div class="row">
+        <div class="col-md-8">
+
+        </div>
+        <div class="col-md-4" th:if="${errors}">
+            <p style="color: red" th:each="error : ${errors}" th:text=" ${error.defaultMessage}"> Error message</p>
+        </div>
+    </div>
     <ul class="nav nav-tabs">
         <li class="nav-item">
             <a class="nav-link active" data-bs-toggle="tab" href="#storageProducts">Товары в наличии</a>
@@ -26,14 +35,12 @@
             <a class="nav-link" data-bs-toggle="tab" href="#discardedProducts">Списанные товары</a>
         </li>
         <li>
-            <a style="width: 250px" th:href="@{/storage/generateReport}" id="generateButton" class="btn btn-success">Сгенерировать отчет</a>
-        </li>
-        <li>
-            <div th:if="${errors}" >
-                <p style="color: red" th:each="error : ${errors}" th:text=" ${error.defaultMessage}"> Error message</p>
-            </div>
+            <a style="width: 200px" th:href="@{/storage/generateReport}" id="generateButton" class="btn btn-success">Сгенерировать
+                отчет</a>
         </li>
     </ul>
+
+
     <div class="tab-content">
         <div class="tab-pane fade show active" id="storageProducts">
             <div class="table-container">

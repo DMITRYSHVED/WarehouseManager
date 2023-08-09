@@ -5,7 +5,7 @@
             <fileNamePattern>myApp.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <maxFileSize>10MB</maxFileSize>
             <maxHistory>7</maxHistory>
-            <totalSizeCap>100MB</totalSizeCap>
+            <totalSizeCap>10MB</totalSizeCap>
         </rollingPolicy>
         <encoder>
             <pattern>%date [%thread] %-5level %logger{35} - %msg%n</pattern>
