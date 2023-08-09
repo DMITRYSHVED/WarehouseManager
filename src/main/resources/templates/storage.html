@@ -35,11 +35,17 @@
             <a class="nav-link" data-bs-toggle="tab" href="#discardedProducts">Списанные товары</a>
         </li>
         <li>
-            <a style="width: 200px" th:href="@{/storage/generateReport}" id="generateButton" class="btn btn-success">Сгенерировать
+            <a id="openModalBtn" style="width: 200px" th:href="@{/storage/generateReport}" class="btn btn-success">Сгенерировать
                 отчет</a>
         </li>
+        <li>
+            <div id="myModal" class="modal">
+                <div th:align="center" class="modal-content">
+                    <h3 style="color: limegreen;margin-top: 15px;margin-bottom: 15px">Отчет сгенерирован!</h3>
+                </div>
+            </div>
+        </li>
     </ul>
-
 
     <div class="tab-content">
         <div class="tab-pane fade show active" id="storageProducts">
@@ -176,5 +182,22 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Открываем модальное окно при клике на кнопку
+    document.getElementById("openModalBtn").addEventListener("click", function() {
+        document.getElementById("myModal").style.display = "block";
+    });
+
+    // Закрываем модальное окно, если пользователь кликнул вне него
+    window.addEventListener("click", function(event) {
+        var modal = document.getElementById("myModal");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    });
+
+</script>
+
 </body>
 </html>

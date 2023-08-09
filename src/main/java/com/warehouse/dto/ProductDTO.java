@@ -17,8 +17,8 @@ public class ProductDTO {
 
     private int ProductType;
 
-    @NotBlank
-    @Size(max = 250,message = "Размер описания доллжен быть в диапазоне от 0 до 250")
+    @NotBlank(message = "описание не должно быть пустым")
+    @Size(max = 250,message = "размер описания доллжен быть в диапазоне от 0 до 250")
     private String description;
 
     public ProductDTO() {
