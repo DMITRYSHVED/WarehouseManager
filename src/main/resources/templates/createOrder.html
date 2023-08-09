@@ -19,8 +19,7 @@
                                                         aria-label="Link to this section: Basic example"></a></h2>
                 <div class="select-box">
                     <div class="select-option">
-                        <input type="text" placeholder="Выберите товар" id="soValue" readonly name=""
-                               required>
+                        <input type="text" placeholder="Выберите товар" id="soValue" readonly name="" required>
                         <input type="hidden" id="productId" required name="productId">
                     </div>
                     <div class="content">
@@ -29,8 +28,9 @@
                         </div>
                         <ul class="options">
                             <li th:each="product : ${products}"
-                                th:value="${product.id}" th:text="${product.name} + ' | ' + ${product.id}"
-                                data-product-id="${product.id}" data-product-text="${product.name}">
+                                th:data-product-id="${product.id}" th:data-product-text="${product.name}">
+                                <span th:text="${product.name}"></span>
+                                <span th:text="${product.id}" style="display: none;"></span>
                             </li>
                         </ul>
                     </div>
@@ -115,12 +115,12 @@
 
     optionsList.forEach(function (optionsListSingle) {
         optionsListSingle.addEventListener('click', function () {
-            text = this.textContent;
-            parts = text.split('|');
-            productIdInput.value = parts[1].trim();
-            soValue.value = parts[0].trim();
+            const productId = this.getAttribute('data-product-id');
+            const productName = this.getAttribute('data-product-text');
+            soValue.value = productName;
+            productIdInput.value = productId;
             selectBox.classList.remove('active');
-        })
+        });
     });
 
 
