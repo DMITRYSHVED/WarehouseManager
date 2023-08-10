@@ -14,14 +14,18 @@
 <body>
 <header th:insert="blocks/header :: header"></header>
 <div class="container mt-5">
-    <h2>Склад</h2>
-
     <div class="row">
         <div class="col-md-8">
-
+            <h2>Склад</h2>
         </div>
         <div class="col-md-4" th:if="${errors}">
             <p style="color: red" th:each="error : ${errors}" th:text=" ${error.defaultMessage}"> Error message</p>
+        </div>
+        <div class="col-md-4" th:if="${failure}">
+            <p style="color: red" th:text="${failure}"> </p>
+        </div>
+        <div class="col-md-4" th:if="${success}">
+            <p style="color: limegreen" th:text="${success}"> </p>
         </div>
     </div>
     <ul class="nav nav-tabs">
@@ -35,13 +39,10 @@
             <a class="nav-link" data-bs-toggle="tab" href="#discardedProducts">Списанные товары</a>
         </li>
         <li>
-            <a id="openModalBtn" style="width: 200px" th:href="@{/storage/generateReport}" class="btn btn-success">Сгенерировать
-                отчет</a>
-        </li>
-        <li>
-            <div id="myModal" class="modal">
-                <div th:align="center" class="modal-content">
-                    <h3 style="color: limegreen;margin-top: 15px;margin-bottom: 15px">Отчет сгенерирован!</h3>
+            <div id="reportSection">
+                <a id="generateButton" style="width: 200px" th:href="@{/storage/generateReport}" class="btn btn-success">Сгенерировать отчет</a>
+                <div id="spinner" class="spinner-border text-success" role="status" style="display: none;">
+                    <span class="visually-hidden">Loading...</span>
                 </div>
             </div>
         </li>
@@ -184,20 +185,16 @@
 </div>
 
 <script>
-    // Открываем модальное окно при клике на кнопку
-    document.getElementById("openModalBtn").addEventListener("click", function() {
-        document.getElementById("myModal").style.display = "block";
+    document.getElementById('generateButton').addEventListener('click', function() {
+        // Скрыть кнопку
+        document.getElementById('generateButton').style.display = 'none';
+
+        // Показать спиннер
+        document.getElementById('spinner').style.display = 'inline-block';
+
     });
 
-    // Закрываем модальное окно, если пользователь кликнул вне него
-    window.addEventListener("click", function(event) {
-        var modal = document.getElementById("myModal");
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    });
 
 </script>
-
 </body>
 </html>

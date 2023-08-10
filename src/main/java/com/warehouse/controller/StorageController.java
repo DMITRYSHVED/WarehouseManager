@@ -82,8 +82,13 @@ public class StorageController {
     }
 
     @GetMapping("/generateReport")
-    public String generateReport() {
-        storageManager.writeToExcelSheet();
+    public String generateReport(RedirectAttributes redirectAttributes) {
+        try {
+            storageManager.writeToExcelSheet();
+            redirectAttributes.addFlashAttribute("success","Отчет сгенерирован");
+        }catch (Exception e) {
+            redirectAttributes.addFlashAttribute("failure", e.getMessage());
+        }
         return "redirect:/storage";
     }
 

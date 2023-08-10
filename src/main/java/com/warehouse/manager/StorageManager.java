@@ -185,7 +185,7 @@ public class StorageManager {
         return totalQuantity;
     }
 
-    public void writeToExcelSheet() {
+    public void writeToExcelSheet() throws IOException {
         String[] row_heading = {"№", "Код", "Наименование", "Категория", "Количество"};
 
         XSSFWorkbook workbook = new XSSFWorkbook();
@@ -266,20 +266,14 @@ public class StorageManager {
             discardedSheet.autoSizeColumn(i);
         }
         FileOutputStream out;
-        try {
-            File file = new File("C:\\Users\\123\\Desktop\\ОТЧЕТЫ\\Склад\\ОТЧЕТ_СКЛАД_" + helper.formatDate(new Date()) + ".xlsx");
-            if (!file.exists()) {
-                file.createNewFile();
-            }
 
-            out = new FileOutputStream(file);
-            workbook.write(out);
-            out.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        File file = new File("C:\\Users\\123\\Desktop\\ОТЧЕТЫ\\Склад\\ОТЧЕТ_СКЛАД_" + helper.formatDate(new Date()) + ".xlsx");
+        if (!file.exists()) {
+            file.createNewFile();
         }
+        out = new FileOutputStream(file);
+        workbook.write(out);
+        out.close();
     }
 }
 
