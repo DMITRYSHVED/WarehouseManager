@@ -38,7 +38,7 @@ public class StorageManager {
     }
 
     public Storage getById(int id) {
-        return storageDao.getById(id, Storage.class);
+        return storageDao.findById(id, Storage.class);
     }
 
     public void delete(Storage storage) {

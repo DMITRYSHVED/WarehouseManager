@@ -18,6 +18,6 @@ public class ProductTypeManager {
     }
 
     public ProductType getById(int id) {
-        return productTypeDao.getById(id, ProductType.class);
+        return productTypeDao.findById(id, ProductType.class);
     }
 }

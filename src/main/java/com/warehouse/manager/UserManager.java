@@ -33,7 +33,7 @@ public class UserManager {
 
     public void save(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole(roleDao.getById(2, Role.class));
+        user.setRole(roleDao.findById(2, Role.class));
         user.setApproved(false);
         userDao.save(user);
     }
@@ -43,7 +43,7 @@ public class UserManager {
     }
 
     public User getById(int id) {
-        return userDao.getById(id, User.class);
+        return userDao.findById(id, User.class);
     }
 
     public User findByLogin(String login) {

@@ -33,7 +33,7 @@ public class ProductManager {
 
 
     public Product getById(int id) {
-        return productDao.getById(id, Product.class);
+        return productDao.findById(id, Product.class);
     }
 
     public List<Product> getProducts() {

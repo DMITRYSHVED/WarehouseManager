@@ -83,7 +83,7 @@ public abstract class AbstractEntityDao {
         }
     }
 
-    public <T extends AbstractEntity> T getById(int id, Class<T> entityType) {
+    public <T extends AbstractEntity> T findById(int id, Class<T> entityType) {
         Session session = null;
         T entity = null;
         try {

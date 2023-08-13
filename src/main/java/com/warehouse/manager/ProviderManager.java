@@ -26,7 +26,7 @@ public class ProviderManager {
     }
 
     public Provider getById(int id) {
-        return providerDao.getById(id, Provider.class);
+        return providerDao.findById(id, Provider.class);
     }
 
     public void updateProvider(Provider provider) {

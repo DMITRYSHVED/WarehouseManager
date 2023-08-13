@@ -30,6 +30,6 @@ public class DiscardedProductManager {
     }
 
     public DiscardedProduct getById(int id) {
-        return discardedProductDao.getById(id, DiscardedProduct.class);
+        return discardedProductDao.findById(id, DiscardedProduct.class);
     }
 }

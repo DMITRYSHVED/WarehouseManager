@@ -42,12 +42,11 @@ public class DeliveryManager {
     public void saveDelivery(DeliveryDTO deliveryDTO) {
         Delivery delivery = new Delivery();
         DeliveryProductMap deliveryProductMap = new DeliveryProductMap();
-        DeliveryStatus deliveryStatus = deliveryStatusDao.getById(1, DeliveryStatus.class);
+        DeliveryStatus deliveryStatus = deliveryStatusDao.findById(1, DeliveryStatus.class);//класс константы
 
         delivery.setDate(deliveryDTO.getDate());
         delivery.setProvider(providerManager.getById(deliveryDTO.getProviderId()));
         delivery.setDeliveryStatus(deliveryStatus);
-        System.out.println(delivery);
         deliveryDao.save(delivery);
         for (int i = 0; i < productList.size(); i++) {
             deliveryProductMap.setDelivery(delivery);
@@ -60,7 +59,7 @@ public class DeliveryManager {
 
 
     public Delivery getById(int id) {
-        return deliveryDao.getById(id, Delivery.class);
+        return deliveryDao.findById(id, Delivery.class);
     }
 
     public void updateDelivery(Delivery delivery) {
@@ -108,7 +107,7 @@ public class DeliveryManager {
     }
 
     public void takeDelivery(Delivery delivery) {
-        delivery.setDeliveryStatus(deliveryStatusDao.getById(2, DeliveryStatus.class));
+        delivery.setDeliveryStatus(deliveryStatusDao.findById(2, DeliveryStatus.class));
         List<DeliveryProductMap> deliveryProductMapList = deliveryProductMapDao.getList();
         for (int i = 0; i < deliveryProductMapList.size(); i++) {
             if (deliveryProductMapList.get(i).getDelivery().equals(delivery)) {

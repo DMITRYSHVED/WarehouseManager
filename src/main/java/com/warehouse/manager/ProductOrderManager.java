@@ -42,13 +42,13 @@ public class ProductOrderManager {
     }
 
     public ProductOrder getById(int id) {
-        return productOrderDao.getById(id, ProductOrder.class);
+        return productOrderDao.findById(id, ProductOrder.class);
     }
 
     public void saveOrder(ProductOrderDTO productOrderDTO) {
         ProductOrder productOrder = new ProductOrder();
         ProductOrderMap productOrderMap = new ProductOrderMap();
-        OrderStatus orderStatus = orderStatusDao.getById(1, OrderStatus.class);
+        OrderStatus orderStatus = orderStatusDao.findById(1, OrderStatus.class);
 
         productOrder.setDate(productOrderDTO.getDate());
         productOrder.setClientName(productOrderDTO.getClientName());
@@ -117,7 +117,7 @@ public class ProductOrderManager {
                 }
             }
         }
-        productOrder.setOrderStatus(orderStatusDao.getById(2, OrderStatus.class));
+        productOrder.setOrderStatus(orderStatusDao.findById(2, OrderStatus.class));
         updateOrder(productOrder);
     }
 

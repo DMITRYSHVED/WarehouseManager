@@ -90,6 +90,7 @@
                         </div>
                         <ul class="options1">
                             <li th:each="provider : ${providers}"
+                                th:if="${provider.active==true}"
                                 th:data-provider-id="${provider.id}" th:data-provider-text="${provider.companyName}">
                                 <span th:text="${provider.companyName}"></span>
                                 <span th:text="${provider.id}" style="display: none;"></span>
